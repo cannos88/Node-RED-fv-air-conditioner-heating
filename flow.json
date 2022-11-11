@@ -1,0 +1,2444 @@
+[
+    {
+        "id": "989e2cdbd342cdd2",
+        "type": "tab",
+        "label": "Automatismo condizionatori",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a5a11f1c12e29837",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Potenza Esportata > 750 W",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.potenza_esportata",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": ">=",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "750"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "750",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 140,
+        "y": 340,
+        "wires": [
+            [
+                "e3ede986592d29ce"
+            ],
+            [],
+            [
+                "e3ede986592d29ce"
+            ]
+        ]
+    },
+    {
+        "id": "20490fd6858c7918",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Acceso condizionatore Matrimoniale 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1470,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "970a5d422d8f0556",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "T esterna < 16.5",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "16.5",
+        "halt_if_type": "num",
+        "halt_if_compare": "lt",
+        "entity_id": "sensor.casa_rotondo_salotto_esterno_temperature",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 880,
+        "y": 340,
+        "wires": [
+            [
+                "402f08022fd5ba30"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "402f08022fd5ba30",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "PDC spenta?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "binary_sensor.stato_pompa",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1130,
+        "y": 340,
+        "wires": [
+            [
+                "fb90edb2131f4e04"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fb90edb2131f4e04",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatori spenti?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "binary_sensor.stato_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "5ce1bf9d394feb5a"
+            ],
+            [
+                "dfa9029831e7ac01"
+            ]
+        ]
+    },
+    {
+        "id": "b3e61915e14d8761",
+        "type": "comment",
+        "z": "989e2cdbd342cdd2",
+        "name": "Accensione automatica condizionatori per autoconsumo solare e PDC spenta",
+        "info": "",
+        "x": 290,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "57d5f3112d36888d",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Potenza Prelevata > 200 W",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.potenza_prelevata",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "200",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 140,
+        "y": 1040,
+        "wires": [
+            [
+                "4095db61ae167142"
+            ],
+            [],
+            [
+                "4095db61ae167142"
+            ]
+        ]
+    },
+    {
+        "id": "dfa9029831e7ac01",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Matrimoniale Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_matrimoniale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 470,
+        "y": 540,
+        "wires": [
+            [
+                "b27201e1ae034d23"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e3ede986592d29ce",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "e6c104bfea1dee14"
+            ]
+        ]
+    },
+    {
+        "id": "aeb98c1fd3738dc0",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "accensione Condizionatore Ale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_ale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1110,
+        "y": 540,
+        "wires": [
+            [
+                "e168cd2ad5d8d367"
+            ]
+        ]
+    },
+    {
+        "id": "5ce1bf9d394feb5a",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "accensione Condizionatore Matrimoniale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_matrimoniale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 760,
+        "y": 440,
+        "wires": [
+            [
+                "b8d32f88fff07a82"
+            ]
+        ]
+    },
+    {
+        "id": "25b155fa5de4a1e8",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Acceso condizionatore Ale 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1370,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b27201e1ae034d23",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Ale Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_ale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [],
+            [
+                "aeb98c1fd3738dc0"
+            ]
+        ]
+    },
+    {
+        "id": "4095db61ae167142",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "6",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 390,
+        "y": 1040,
+        "wires": [
+            [
+                "06b54a4a8e08c1f4"
+            ]
+        ]
+    },
+    {
+        "id": "c3e396033037f70d",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Ale Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_ale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 860,
+        "y": 1040,
+        "wires": [
+            [
+                "f7de6402c099984d"
+            ],
+            [
+                "987e7f8bc910e419"
+            ]
+        ]
+    },
+    {
+        "id": "f7de6402c099984d",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "spegnimento Condizionatore Ale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_ale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1190,
+        "y": 1040,
+        "wires": [
+            [
+                "3078aa0d44880acd"
+            ]
+        ]
+    },
+    {
+        "id": "3078aa0d44880acd",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Ale 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1500,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c17c74efb128d817",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Matrimoniale Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_matrimoniale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 870,
+        "y": 1200,
+        "wires": [
+            [
+                "8c0e7f75cdaa77ed"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8c0e7f75cdaa77ed",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "spegnimento Condizionatore Matrimoniale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_matrimoniale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1220,
+        "y": 1200,
+        "wires": [
+            [
+                "1113bd4239e7a074"
+            ]
+        ]
+    },
+    {
+        "id": "1113bd4239e7a074",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Matrimoniale 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1580,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "974c3cfcfad58e0b",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Potenza Esportata > 1400 W",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.potenza_esportata",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": ">=",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "1400"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "1400",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 140,
+        "y": 700,
+        "wires": [
+            [
+                "331790b7ddcd7238"
+            ],
+            [],
+            [
+                "331790b7ddcd7238"
+            ]
+        ]
+    },
+    {
+        "id": "331790b7ddcd7238",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "62b0f34c779deb9a"
+            ]
+        ]
+    },
+    {
+        "id": "3dd7b41845ac1baf",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "T esterna < 16.5",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "16.5",
+        "halt_if_type": "num",
+        "halt_if_compare": "lt",
+        "entity_id": "sensor.casa_rotondo_salotto_esterno_temperature",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 980,
+        "y": 700,
+        "wires": [
+            [
+                "f3a5e93ed9866a1f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f3a5e93ed9866a1f",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "PDC spenta?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "binary_sensor.stato_pompa",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1230,
+        "y": 700,
+        "wires": [
+            [
+                "64a89b1797293a5d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "64a89b1797293a5d",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Matrimoniale Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_matrimoniale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 510,
+        "y": 800,
+        "wires": [
+            [
+                "383314a755b20183"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "383314a755b20183",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Ale Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_ale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 880,
+        "y": 800,
+        "wires": [
+            [
+                "ca21431038b2e3db"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7290a5cf5c3513d4",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "accensione Condizionatore Salotto",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_salotto"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 860,
+        "y": 880,
+        "wires": [
+            [
+                "2c98fd1d4673540b"
+            ]
+        ]
+    },
+    {
+        "id": "fdcfdeb1deb6733f",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Acceso condizionatore Salotto 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1230,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ca21431038b2e3db",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Salotto Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_salotto",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1210,
+        "y": 800,
+        "wires": [
+            [],
+            [
+                "9b9d8830b553c111"
+            ]
+        ]
+    },
+    {
+        "id": "987e7f8bc910e419",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Salotto Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_salotto",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 510,
+        "y": 1120,
+        "wires": [
+            [
+                "d66509157cb58fcb"
+            ],
+            [
+                "c17c74efb128d817"
+            ]
+        ]
+    },
+    {
+        "id": "559cb265adc4a36e",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "Spegnimento Condizionatore Salotto",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_salotto"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1210,
+        "y": 1120,
+        "wires": [
+            [
+                "0f4c575dc6c0df5f"
+            ]
+        ]
+    },
+    {
+        "id": "0f4c575dc6c0df5f",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Salotto 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1540,
+        "y": 1120,
+        "wires": [
+            [
+                "461481f632c71b17"
+            ]
+        ]
+    },
+    {
+        "id": "7c01cace5d3bc194",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "temperatura salotto > 23.7",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.netatmo_salotto_temperature",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": ">=",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "23.7"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "24",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 130,
+        "y": 1300,
+        "wires": [
+            [
+                "1fade9bdfa62bacf"
+            ],
+            [],
+            [
+                "1fade9bdfa62bacf"
+            ]
+        ]
+    },
+    {
+        "id": "1fade9bdfa62bacf",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "10",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 370,
+        "y": 1300,
+        "wires": [
+            [
+                "4eb21f7bcc9792d1"
+            ]
+        ]
+    },
+    {
+        "id": "e3d34516241f4a33",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Salotto Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_salotto",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 850,
+        "y": 1300,
+        "wires": [
+            [
+                "662e24da2fa50031"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "662e24da2fa50031",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "Spegnimento Condizionatore Salotto",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_salotto"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1190,
+        "y": 1300,
+        "wires": [
+            [
+                "4c663b3a1a814b8e"
+            ]
+        ]
+    },
+    {
+        "id": "4c663b3a1a814b8e",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Salotto per temperatura oltre i 24🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1520,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2fb1721b3687a4cd",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "temperatura Cam Ale > 24",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.aqaracameraale_temperature",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": ">=",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "24"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "24",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 130,
+        "y": 1380,
+        "wires": [
+            [
+                "2aa1c98bb1cfc93c"
+            ],
+            [],
+            [
+                "2aa1c98bb1cfc93c"
+            ]
+        ]
+    },
+    {
+        "id": "2aa1c98bb1cfc93c",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "10",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 370,
+        "y": 1380,
+        "wires": [
+            [
+                "aa66d01175abe1c0"
+            ]
+        ]
+    },
+    {
+        "id": "668326422c88d64f",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Ale Acceso?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_ale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 840,
+        "y": 1380,
+        "wires": [
+            [
+                "daf890c177b31057"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "daf890c177b31057",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "spegnimento Condizionatore Ale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_ale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1130,
+        "y": 1380,
+        "wires": [
+            [
+                "4d0ff38646acbf52"
+            ]
+        ]
+    },
+    {
+        "id": "4d0ff38646acbf52",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Ale per temperatura oltre i 24 🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1420,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "648a6870975ffbfe",
+        "type": "trigger-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "temperatura Cam Matrimoniale > 24",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "sensor.netatmo_camera_temperature",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": ">=",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "24"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 3,
+        "customoutputs": [
+            {
+                "messageType": "payload",
+                "messageValue": "STOP",
+                "messageValueType": "str",
+                "comparatorPropertyType": "current_state",
+                "comparatorPropertyValue": "new_state.state",
+                "comparatorType": "<",
+                "comparatorValue": "24",
+                "comparatorValueDataType": "num"
+            }
+        ],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 160,
+        "y": 1460,
+        "wires": [
+            [
+                "b8cb78a982b6e820"
+            ],
+            [],
+            [
+                "b8cb78a982b6e820"
+            ]
+        ]
+    },
+    {
+        "id": "b8cb78a982b6e820",
+        "type": "trigger",
+        "z": "989e2cdbd342cdd2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "10",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "STOP",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 430,
+        "y": 1460,
+        "wires": [
+            [
+                "82ccbe83b652c288"
+            ]
+        ]
+    },
+    {
+        "id": "75f37df984960e4b",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Condizionatore Matrimoniale Acceso",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "heat",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.condizionatore_matrimoniale",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 930,
+        "y": 1460,
+        "wires": [
+            [
+                "67673b6004065643"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "67673b6004065643",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "spegnimento Condizionatore Matrimoniale",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.condizionatore_matrimoniale"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1280,
+        "y": 1460,
+        "wires": [
+            [
+                "c82d3bc50110d6df"
+            ]
+        ]
+    },
+    {
+        "id": "c82d3bc50110d6df",
+        "type": "api-call-service",
+        "z": "989e2cdbd342cdd2",
+        "name": "avviso condizionatore Spento",
+        "server": "260765119bb2ca8e",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "telegramcarmelo",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "{\"message\":\"🌡️ Spento condizionatore Matrimoniale per temperatura oltre i 24🌡️\",\"title\":\"Autoconsumo Condizionatori:\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1620,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b9d8830b553c111",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "T salotto < 23.5?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "23.5",
+        "halt_if_type": "num",
+        "halt_if_compare": "lt",
+        "entity_id": "sensor.netatmo_salotto_temperature",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 490,
+        "y": 880,
+        "wires": [
+            [
+                "7290a5cf5c3513d4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e6c104bfea1dee14",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "970a5d422d8f0556"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "62b0f34c779deb9a",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 700,
+        "y": 700,
+        "wires": [
+            [
+                "3dd7b41845ac1baf"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "06b54a4a8e08c1f4",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 600,
+        "y": 1040,
+        "wires": [
+            [
+                "c3e396033037f70d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4eb21f7bcc9792d1",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 580,
+        "y": 1300,
+        "wires": [
+            [
+                "e3d34516241f4a33"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "aa66d01175abe1c0",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 580,
+        "y": 1380,
+        "wires": [
+            [
+                "668326422c88d64f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "82ccbe83b652c288",
+        "type": "api-current-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "automazione attiva?",
+        "server": "260765119bb2ca8e",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.automazione_autoconsumo_condizionatori",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 640,
+        "y": 1460,
+        "wires": [
+            [
+                "75f37df984960e4b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2c98fd1d4673540b",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato onAutomazioneSalotto",
+        "rules": [
+            {
+                "t": "set",
+                "p": "onAutomazioneSalotto",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 880,
+        "wires": [
+            [
+                "fdcfdeb1deb6733f"
+            ]
+        ]
+    },
+    {
+        "id": "d66509157cb58fcb",
+        "type": "switch",
+        "z": "989e2cdbd342cdd2",
+        "name": "Acceso con automazione?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 840,
+        "y": 1120,
+        "wires": [
+            [
+                "559cb265adc4a36e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b8d32f88fff07a82",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato onAutomazioneMatrimoniale",
+        "rules": [
+            {
+                "t": "set",
+                "p": "onAutomazioneMatrimoniale",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 440,
+        "wires": [
+            [
+                "20490fd6858c7918"
+            ]
+        ]
+    },
+    {
+        "id": "e168cd2ad5d8d367",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato onAutomazioneAle",
+        "rules": [
+            {
+                "t": "set",
+                "p": "onAutomazioneAle",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1460,
+        "y": 540,
+        "wires": [
+            [
+                "25b155fa5de4a1e8"
+            ]
+        ]
+    },
+    {
+        "id": "461481f632c71b17",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato onAutomazioneSalotto",
+        "rules": [
+            {
+                "t": "set",
+                "p": "onAutomazioneSalotto",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1870,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3fcf22baac5e533",
+        "type": "poll-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Leggi prima soglia",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "30",
+        "updateIntervalType": "num",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": true,
+        "outputonchanged": true,
+        "entity_id": "input_number.primo_valore_immissione",
+        "state_type": "num",
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "67a63509322f01ea"
+            ]
+        ]
+    },
+    {
+        "id": "67a63509322f01ea",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato",
+        "rules": [
+            {
+                "t": "set",
+                "p": "primaSoglia",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "30680d691d2eb11d"
+            ]
+        ]
+    },
+    {
+        "id": "30680d691d2eb11d",
+        "type": "debug",
+        "z": "989e2cdbd342cdd2",
+        "name": "Visualizza valore letto",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "de85421325d11c18",
+        "type": "poll-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Leggi seconda soglia",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "30",
+        "updateIntervalType": "num",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": true,
+        "outputonchanged": true,
+        "entity_id": "input_number.secondo_valore_immissione",
+        "state_type": "num",
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "8b1982dfb30d5f77"
+            ]
+        ]
+    },
+    {
+        "id": "8b1982dfb30d5f77",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato",
+        "rules": [
+            {
+                "t": "set",
+                "p": "secondaSoglia",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "30680d691d2eb11d"
+            ]
+        ]
+    },
+    {
+        "id": "61493c5aaf33708e",
+        "type": "poll-state",
+        "z": "989e2cdbd342cdd2",
+        "name": "Leggi soglia prelievi",
+        "server": "260765119bb2ca8e",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "30",
+        "updateIntervalType": "num",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": true,
+        "outputonchanged": true,
+        "entity_id": "input_number.soglia_prelievo",
+        "state_type": "num",
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "7597175852f47849"
+            ]
+        ]
+    },
+    {
+        "id": "7597175852f47849",
+        "type": "change",
+        "z": "989e2cdbd342cdd2",
+        "name": "registra il dato",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sogliaPrelievi",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "30680d691d2eb11d"
+            ]
+        ]
+    },
+    {
+        "id": "38437c73e55d228d",
+        "type": "comment",
+        "z": "989e2cdbd342cdd2",
+        "name": "Lettura valori soglie da input number di HA",
+        "info": "",
+        "x": 180,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "c2a0d62bb2a01842",
+        "type": "comment",
+        "z": "989e2cdbd342cdd2",
+        "name": "Spegnimento a temperatura stanza troppo alta",
+        "info": "",
+        "x": 190,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "260765119bb2ca8e",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 5,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": "at: ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "h23",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": true
+    }
+]
