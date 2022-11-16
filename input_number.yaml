@@ -1,0 +1,24 @@
+primo_valore_immissione:
+  name: Prima soglia immissione
+  icon: mdi:solar-power-variant
+  min: 0
+  max: 1000
+  step: 50
+  unit_of_measurement: W
+  mode: slider
+secondo_valore_immissione:
+  name: Seconda soglia immissione
+  icon: mdi:solar-power-variant
+  min: 0
+  max: 1500
+  step: 50
+  unit_of_measurement: W
+  mode: slider
+soglia_prelievo:
+  name: Soglia prelievo
+  icon: mdi:transmission-tower-import
+  min: 0
+  max: 1000
+  step: 50
+  unit_of_measurement: W
+  mode: slider
