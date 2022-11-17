@@ -1,0 +1,6 @@
+- platform: template
+  sensors:
+    stato_condizionatori:
+      friendly_name: "Stato Condizionatori"
+      value_template: "{{ is_state('climate.condizionatore_ale', 'heat') or is_state('climate.condizionatore_studio', 'heat') or is_state('climate.condizionatore_matrimoniale', 'heat') or is_state('climate.condizionatore_salotto', 'heat')}}"
+      icon_template: mdi:air-conditioner
