@@ -1,4 +1,4 @@
-# Progetto WIP ma funzionante con variabili statiche
+# Progetto WIP con soglie di immissioni e prelievi configurabili
 
 # Node-RED-fv-air-conditioner-heating
 
