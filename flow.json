@@ -22,7 +22,6 @@
         },
         "nodes": [
             "20490fd6858c7918",
-            "fb90edb2131f4e04",
             "dfa9029831e7ac01",
             "aeb98c1fd3738dc0",
             "5ce1bf9d394feb5a",
@@ -38,7 +37,7 @@
         ],
         "x": 14,
         "y": 779,
-        "w": 1952,
+        "w": 2032,
         "h": 222
     },
     {
@@ -320,58 +319,10 @@
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
-        "x": 1730,
+        "x": 1890,
         "y": 880,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "fb90edb2131f4e04",
-        "type": "api-current-state",
-        "z": "989e2cdbd342cdd2",
-        "g": "df4e4ece660d7db1",
-        "name": "Condizionatori spenti?",
-        "server": "260765119bb2ca8e",
-        "version": 3,
-        "outputs": 2,
-        "halt_if": "off",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "binary_sensor.stato_condizionatori",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            }
-        ],
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "override_topic": false,
-        "state_location": "payload",
-        "override_payload": "msg",
-        "entity_location": "data",
-        "override_data": "msg",
-        "x": 420,
-        "y": 880,
-        "wires": [
-            [
-                "4a412f59cd86b3ad"
-            ],
-            [
-                "dfa9029831e7ac01"
-            ]
         ]
     },
     {
@@ -461,13 +412,15 @@
         "override_payload": "msg",
         "entity_location": "data",
         "override_data": "msg",
-        "x": 310,
-        "y": 960,
+        "x": 450,
+        "y": 880,
         "wires": [
             [
                 "b27201e1ae034d23"
             ],
-            []
+            [
+                "4a412f59cd86b3ad"
+            ]
         ]
     },
     {
@@ -548,7 +501,7 @@
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
-        "x": 980,
+        "x": 1100,
         "y": 880,
         "wires": [
             [
@@ -1170,7 +1123,7 @@
                 "comparatorPropertyType": "current_state",
                 "comparatorPropertyValue": "new_state.state",
                 "comparatorType": "<",
-                "comparatorValue": "24",
+                "comparatorValue": "23.7",
                 "comparatorValueDataType": "num"
             }
         ],
@@ -2045,6 +1998,13 @@
                 "pt": "flow",
                 "to": "true",
                 "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "primaSogliaOk",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
             }
         ],
         "action": "",
@@ -2112,7 +2072,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1370,
+        "x": 1510,
         "y": 880,
         "wires": [
             [
@@ -2158,6 +2118,13 @@
             {
                 "t": "set",
                 "p": "onAutomazioneSalotto",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "primaSogliaOk",
                 "pt": "flow",
                 "to": "false",
                 "tot": "bool"
@@ -2479,7 +2446,7 @@
         "override_payload": "msg",
         "entity_location": "data",
         "override_data": "msg",
-        "x": 660,
+        "x": 780,
         "y": 880,
         "wires": [
             [
@@ -2674,11 +2641,11 @@
         "override_payload": "msg",
         "entity_location": "data",
         "override_data": "msg",
-        "x": 190,
+        "x": 170,
         "y": 880,
         "wires": [
             [
-                "fb90edb2131f4e04"
+                "dfa9029831e7ac01"
             ],
             []
         ]
@@ -3110,7 +3077,7 @@
         "z": "989e2cdbd342cdd2",
         "g": "480244b6441a763c",
         "name": "Confronta Dati",
-        "func": "var soglia = flow.get(\"secondaSoglia\");\nvar potenzaEsportata = flow.get(\"potenzaEsportata2\");\n\nif (potenzaEsportata >= soglia){\n    msg.payload = \"on\";\n}else{\n    msg.payload = \"STOP\";\n}\n\nif(msg.payload != \"STOP\"){\n   node.status({ fill: 'green', shape: 'dot', text: msg.payload});\n\n}else{\n    node.status({ fill: 'red', shape: 'ring', text: msg.payload});\n}\nreturn msg;",
+        "func": "var soglia = flow.get(\"secondaSoglia\");\nvar potenzaEsportata = flow.get(\"potenzaEsportata2\");\nvar primaSogliaOk = flow.get(\"primaSogliaOk\");\n\nif(primaSogliaOk){\n    if (potenzaEsportata >= soglia){\n        msg.payload = \"on\";\n    }else{\n        msg.payload = \"STOP\";\n    } \n}else{\n    msg.payload = \"STOP\";\n}\n\nif (potenzaEsportata >= soglia){\n    msg.payload = \"on\";\n}else{\n    msg.payload = \"STOP\";\n}\n\nif(msg.payload != \"STOP\"){\n   node.status({ fill: 'green', shape: 'dot', text: msg.payload});\n\n}else{\n    node.status({ fill: 'red', shape: 'ring', text: msg.payload});\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
